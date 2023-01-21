@@ -1,0 +1,9 @@
+# cd to code
+alias cdc="cd ~/c"
+
+# list all files and folders
+alias ll="ls -al"
+
+# python3
+alias python=python3
+
