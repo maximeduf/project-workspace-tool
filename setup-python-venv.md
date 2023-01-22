@@ -14,3 +14,6 @@ python3.11 -m venv venv
 
 # activates the virtualenv
 source venv/bin/activate
+
+# test
+pytest -cov=main tests/
