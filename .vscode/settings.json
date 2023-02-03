@@ -9,5 +9,6 @@
     "**/Thumbs.db": true,
     "**/.pytest_cache": true,
     "**/__pycache__": true
-  }
+  },
+  "python.pythonPath": "../.venv/bin/python"
 }

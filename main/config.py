@@ -13,10 +13,10 @@ class ConfigType(Enum):
 class Config(ABC):
     FSTRING = "# {}\n{}\n\n"
     type: ConfigType
-    desc: str
+    description: str
 
     def __init__(self, desc: str, type: ConfigType):
-        self.desc = desc
+        self.description = desc
         self.type = type
 
     @abstractmethod
@@ -27,18 +27,18 @@ class Config(ABC):
 class AliasConfig(Config):
     line: str
 
-    def __init__(self, desc: str, alias: str):
+    def __init__(self, desc: str = '', alias: str = ''):
         super().__init__(desc, ConfigType.ALIAS)
         self.line = alias
 
     def __str__(self) -> str:
-        return self.FSTRING.format(self.desc, self.line)
+        return self.FSTRING.format(self.description, self.line)
 
 
 class FunctionConfig(Config):
     lines: List[str]
 
-    def __init__(self, desc: str, *lines: List[str]):
+    def __init__(self, desc: str = '', lines: List[str] = []):
         super().__init__(desc, ConfigType.FUNCTION)
         self.lines = lines
 
@@ -47,18 +47,18 @@ class FunctionConfig(Config):
         for line in self.lines:
             function_string += line
 
-        return self.FSTRING.format(self.desc, "\n".join(self.lines))
+        return self.FSTRING.format(self.description, "\n".join(self.lines))
 
 
 class VarConfig(Config):
     line: str
 
-    def __init__(self, desc: str, line: str):
+    def __init__(self, desc: str = '', line: str = ''):
         super().__init__(desc, ConfigType.ENV_VAR)
         self.line = line
 
     def __str__(self) -> str:
-        return self.FSTRING.format(self.desc, self.line)
+        return self.FSTRING.format(self.description, self.line)
 
 
 @dataclass
