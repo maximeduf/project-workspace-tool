@@ -133,7 +133,7 @@ class TestConfigList:
         assert self.default_config_list != None
 
     def test_init_default_with_configs(self):
-        assert self.config_list.configs == self.configs
+        assert self.config_list == self.configs
 
     def test_str_has_str_of_each_config(self):
         lines = self.config_list.__str__().splitlines()
@@ -156,3 +156,66 @@ class TestConfigList:
             line_count += 1
 
         assert len(lines) == line_count
+
+    def test_set_item(self):
+        config_to_set = AliasConfig("bop", "bwap")
+        index_to_set = 1
+        old_item_at_index = self.config_list[index_to_set]
+        self.config_list[index_to_set] = config_to_set
+        assert self.config_list[index_to_set] != old_item_at_index
+        assert self.config_list[index_to_set].type == ConfigType.ALIAS
+        assert self.config_list[index_to_set].line == "bwap"
+        assert self.config_list[index_to_set].description == "bop"
+
+    def test_insert(self):
+        config_to_insert = AliasConfig("boop", "beep")
+        index_to_insert = 1
+        old_item_at_index = self.config_list[index_to_insert]
+        self.config_list.insert(index_to_insert, config_to_insert)
+        assert self.config_list[index_to_insert] != old_item_at_index
+        assert self.config_list[index_to_insert].type == ConfigType.ALIAS
+        assert self.config_list[index_to_insert].line == "beep"
+        assert self.config_list[index_to_insert].description == "boop"
+
+    def test_append(self):
+        config_to_append = AliasConfig("boom", "tsee")
+        old_last_item = self.config_list[-1]
+        self.config_list.append(config_to_append)
+        assert self.config_list[-1] != old_last_item
+        assert self.config_list[-1].type == ConfigType.ALIAS
+        assert self.config_list[-1].line == "tsee"
+        assert self.config_list[-1].description == "boom"
+
+    def test_extend_same(self):
+        some_configs = ConfigList([
+            AliasConfig("one", "two"),
+            VarConfig("three", "four")
+        ])
+        configs_to_extend = ConfigList([
+            FunctionConfig("a function", ["one", "two", "three lines"]),
+            VarConfig("my fancy variable", "export stuff=things")
+        ])
+
+        len_old_configs = len(some_configs)
+        len_extended = len(configs_to_extend)
+
+        some_configs.extend(configs_to_extend)
+        assert (len_old_configs + len_extended) == len(
+            some_configs), f"len of extended config should be {len_old_configs} + {len_extended} = {len(some_configs)}"
+
+    def test_extend_different_iterable(self):
+        some_configs = ConfigList([
+            AliasConfig("one", "two"),
+            VarConfig("three", "four")
+        ])
+        configs_to_extend = [
+            FunctionConfig("a function", ["one", "two", "three lines"]),
+            VarConfig("my fancy variable", "export stuff=things")
+        ]
+
+        len_old_configs = len(some_configs)
+        len_extended = len(configs_to_extend)
+
+        some_configs.extend(configs_to_extend)
+        assert (len_old_configs + len_extended) == len(
+            some_configs), f"len of extended config should be {len_old_configs} + {len_extended} = {len(some_configs)}"

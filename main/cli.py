@@ -9,6 +9,6 @@ class Cli:
     cli_args: CliArgs
     configs: ConfigList
     
-    def __init__(self, config_list: ConfigList = None):
+    def __init__(self, config_list: ConfigList = []):
         self.cli_args = CliArgs()
-        self.configs = ConfigList()
+        self.configs = ConfigList(config_list)

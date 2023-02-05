@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum
-from typing import List
+from typing import Iterable, List
 
 
 class ConfigType(Enum):
@@ -61,12 +61,27 @@ class VarConfig(Config):
         return self.FSTRING.format(self.description, self.line)
 
 
-@dataclass
-class ConfigList:
-    configs: List[Config] = None
+class ConfigList(List):
+    def __init__(self, configs: List[Config] = []):
+        super().__init__(config for config in configs)
+
+    def __setitem__(self, index, config):
+        super().__setitem__(index, config)
 
     def __str__(self) -> str:
         configs_string = ""
-        for config in self.configs:
+        for config in self:
             configs_string += str(config)
         return configs_string
+
+    def insert(self, index, config: Config):
+        super().insert(index, config)
+
+    def append(self, config):
+        super().append(config)
+
+    def extend(self, other):
+        if isinstance(other, type(self)):
+            super().extend(other)
+        else:
+            super().extend(config for config in other)

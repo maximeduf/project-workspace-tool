@@ -3,9 +3,11 @@ from main.args import CliArgs
 from main.config import AliasConfig, ConfigList, Config, ConfigType
 import pytest
 
+
 class TestMain:
     def test_main_exists(self):
         main()
+
 
 class TestCli:
     def test_init_default(self):
@@ -26,6 +28,8 @@ class TestCli:
         expected_description = "An alias description"
         expected_alias = "alias cdc = cd ~/c"
 
-        cli = Cli(config_list=[AliasConfig(description=expected_description, alias=expected_alias)])
-        assert cli.configs.configs[0] == ConfigType.ALIAS
-        
+        cli = Cli(config_list=[
+            AliasConfig(
+                description=expected_description, alias=expected_alias)
+        ])
+        assert cli.configs[0].type == ConfigType.ALIAS
