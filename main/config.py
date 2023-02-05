@@ -15,8 +15,8 @@ class Config(ABC):
     type: ConfigType
     description: str
 
-    def __init__(self, desc: str, type: ConfigType):
-        self.description = desc
+    def __init__(self, description: str, type: ConfigType):
+        self.description = description
         self.type = type
 
     @abstractmethod
@@ -27,8 +27,8 @@ class Config(ABC):
 class AliasConfig(Config):
     line: str
 
-    def __init__(self, desc: str = '', alias: str = ''):
-        super().__init__(desc, ConfigType.ALIAS)
+    def __init__(self, description: str = '', alias: str = ''):
+        super().__init__(description, ConfigType.ALIAS)
         self.line = alias
 
     def __str__(self) -> str:
@@ -38,8 +38,8 @@ class AliasConfig(Config):
 class FunctionConfig(Config):
     lines: List[str]
 
-    def __init__(self, desc: str = '', lines: List[str] = []):
-        super().__init__(desc, ConfigType.FUNCTION)
+    def __init__(self, description: str = '', lines: List[str] = []):
+        super().__init__(description, ConfigType.FUNCTION)
         self.lines = lines
 
     def __str__(self) -> str:
@@ -53,8 +53,8 @@ class FunctionConfig(Config):
 class VarConfig(Config):
     line: str
 
-    def __init__(self, desc: str = '', line: str = ''):
-        super().__init__(desc, ConfigType.ENV_VAR)
+    def __init__(self, description: str = '', line: str = ''):
+        super().__init__(description, ConfigType.ENV_VAR)
         self.line = line
 
     def __str__(self) -> str:
