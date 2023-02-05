@@ -21,7 +21,7 @@ class Config(ABC):
 
     @abstractmethod
     def __str__(self) -> str:
-        ...
+        raise NotImplementedError
 
 
 class AliasConfig(Config):
