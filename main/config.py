@@ -77,10 +77,10 @@ class ConfigList(List):
     def insert(self, index, config: Config):
         super().insert(index, config)
 
-    def append(self, config):
+    def append(self, config: Config):
         super().append(config)
 
-    def extend(self, other):
+    def extend(self, other: Config):
         if isinstance(other, type(self)):
             super().extend(other)
         else:
