@@ -9,7 +9,7 @@ expected_lines = ["some", "lines", "}"]
 class TestConfig:
     def test_error_instantiation_of_abc(self):
         with pytest.raises(TypeError):
-            config = Config()
+            Config()
 
     def test_children_must_implement_abstract_method(self):
         class SomeConfig(Config):

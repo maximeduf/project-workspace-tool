@@ -8,7 +8,7 @@ class TestMain:
     def test_main_exists(self):
         main()
 
-    @patch.object(Cli, "parse_args")
+    @patch.object(Cli, "start")
     def test_main_makes_cli(self, mock):
         main()
         assert mock.called
