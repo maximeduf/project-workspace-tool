@@ -1,3 +1,11 @@
 
+from argparse import ArgumentParser
+
+
 class CliArgs:
-    pass
+    parser: ArgumentParser
+    def __init__(self):
+        self.parser = ArgumentParser()
+
+    def parse(self):
+        self.parser.parse_args()
