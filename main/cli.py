@@ -12,6 +12,7 @@ class Cli:
     configs: ConfigList
 
     def __init__(self, config_list: ConfigList = []):
+        print("cli init")
         self.cli_args = CliArgs()
         self.configs = ConfigList(config_list)
 

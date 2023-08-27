@@ -1,6 +1,7 @@
 https://aaronlelevier.github.io/virtualenv-cheatsheet/
 
 # install python
+sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt-get install python3.11
 
 # installs PIP globally
@@ -15,5 +16,4 @@ python3.11 -m venv venv
 # activates the virtualenv
 source venv/bin/activate
 
-# test
-pytest -cov=main tests/
+pip install -r requirements.txt
