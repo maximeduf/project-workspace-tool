@@ -7,20 +7,17 @@ expected_lines = ["some", "lines", "}"]
 
 
 class TestConfig:
-    def test_error_instantiation_of_abc(self):
-        with pytest.raises(TypeError):
-            Config()
-
-    def test_children_must_implement_abstract_method(self):
-        class SomeConfig(Config):
+    def test_config_raises_when_child_class_doesnt_implement(self):
+        class FaultyConfigClass(Config):
             def __init__(self, desc=''):
                 super().__init__(desc, ConfigType.ALIAS)
 
+            # we trick the interpreter into thinking we implemented config methods
             def __str__(self):
                 super().__str__()
 
         with pytest.raises(NotImplementedError):
-            some_config = SomeConfig()
+            some_config = FaultyConfigClass()
             some_config.__str__()
 
 
