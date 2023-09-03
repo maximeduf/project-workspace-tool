@@ -4,11 +4,16 @@ from unittest.mock import patch
 import pytest
 
 class TestUseCase:
-    def test_specific_use_case_must_implement_abc(self):
+    def test_config_raises_when_child_class_doesnt_implement(self):
         class MyUseCase(UseCase[int, str]):
-            pass
-        with pytest.raises(TypeError):
-            MyUseCase()
+            def __init__(self, params: int):
+                super().__init__(params)
+            def __call__(self) -> str:
+                super().__call__()
+
+        with pytest.raises(NotImplementedError):
+            usecase = MyUseCase(0)
+            usecase()
 
     def test_specific_use_case_generics(self):
         class AnotherUseCase(UseCase[int, str]):
