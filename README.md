@@ -10,7 +10,7 @@ python -m main
 ```
 ### Tests
 ```
-pytest
+pytest --cov-config .coveragerc  --cov-report term-missing --cov=main tests/
 ```
 
 ## Vision
