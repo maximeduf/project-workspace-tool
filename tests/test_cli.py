@@ -1,11 +1,11 @@
 import unittest
 from unittest.mock import patch
 from click.testing import CliRunner
-from main.cli import cli, main
+from multi_repo_workspace.cli import cli, main
 
 
 class TestMain(unittest.TestCase):
-    @patch('main.cli.cli')
+    @patch('multi_repo_workspace.cli.cli')
     def test_main_calls_cli(self, mock_cli):
         main()
         mock_cli.assert_called_once()

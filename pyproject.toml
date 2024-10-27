@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "multi-repo-workspace"
+version = "0.0.1"
+authors = [{name = "Maxime Dufresne", email = "maxm.dufresne@gmail.com"}]
+description = "Command Line Interface for managing projects in a multi-repository context by configuration."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies =  [
+    "click==8.1.7",
+    "coverage==7.6.4",
+    "packaging==24.1",
+    "pkginfo==1.10.*",
+    "prompt-toolkit==3.0.48",
+    "Pygments==2.18.0",
+    "regex==2024.9.11",
+]
+[project.optional-dependencies]
+test = [
+    "pytest==8.3.3",
+    "pytest-cov==5.0.0",
+    "iniconfig==2.0.0",
+    "pluggy==1.5.0",
+]
+
+[project.scripts]
+mrw = "multi_repo_workspace.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/maximeduf/project-workspace-tool"
+Issues = "https://github.com/maximeduf/project-workspace-tool/issues"
+

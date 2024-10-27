@@ -20,6 +20,3 @@ source venv/bin/activate
 
 # to deactive venv
 deactivate
-
-# install dependencies (in venv)
-pip install -r requirements.txt

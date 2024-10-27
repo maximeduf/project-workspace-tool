@@ -16,4 +16,4 @@ def cli(ctx, verbose):
     # relay args
     # ctx.obj['group'].set_verbose(verbose)
     # ...
-    click.echo("cli init")
+    click.echo("cli init sups ups ups")

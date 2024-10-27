@@ -1,5 +1,4 @@
 {
-  "editor.minimap.enabled": false,
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -10,13 +9,4 @@
     "**/.pytest_cache": true,
     "**/__pycache__": true
   },
-  "python.testing.unittestArgs": [
-    "-v",
-    "-s",
-    "./tests",
-    "-p",
-    "test_*.py"
-  ],
-  "python.testing.pytestEnabled": false,
-  "python.testing.unittestEnabled": true
 }
