@@ -10,5 +10,13 @@
     "**/.pytest_cache": true,
     "**/__pycache__": true
   },
-  "python.pythonPath": "../.venv/bin/python"
+  "python.testing.unittestArgs": [
+    "-v",
+    "-s",
+    "./tests",
+    "-p",
+    "test_*.py"
+  ],
+  "python.testing.pytestEnabled": false,
+  "python.testing.unittestEnabled": true
 }

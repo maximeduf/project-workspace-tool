@@ -1,20 +1,19 @@
-from main.cli_args import CliArgs
-from main.config import ConfigList
+import click
 
 
 def main():
-    cli = Cli()
-    cli.start()
+    cli()
 
 
-class Cli:
-    cli_args: CliArgs
-    configs: ConfigList
-
-    def __init__(self, config_list: ConfigList = []):
-        print("cli init")
-        self.cli_args = CliArgs()
-        self.configs = ConfigList(config_list)
-
-    def start(self):
-        pass
+@click.group(invoke_without_command=True)
+@click.option("--verbose", is_flag=True, help="Will print verbose messages.")
+@click.pass_context
+def cli(ctx, verbose):
+    """Default command invoked as a command."""
+    ctx.ensure_object(dict)
+    # add command groups
+    # ctx.obj['group'] = GroupObject()
+    # relay args
+    # ctx.obj['group'].set_verbose(verbose)
+    # ...
+    click.echo("cli init")

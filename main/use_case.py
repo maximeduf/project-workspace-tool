@@ -1,4 +1,4 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
 # represent parameters needed for a use case
@@ -12,6 +12,7 @@ class UseCase(ABC, Generic[Params, Returns]):
     def __init__(self, params: Params):
         self.params = params
 
-    @abstractclassmethod
+    @classmethod
+    @abstractmethod
     def __call__(self) -> Returns:
         raise NotImplementedError

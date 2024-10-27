@@ -1,50 +1,27 @@
-from main.cli import *
-from main.cli_args import CliArgs
-from main.config import AliasConfig, ConfigList, Config, ConfigType, VarConfig
+import unittest
 from unittest.mock import patch
+from click.testing import CliRunner
+from main.cli import cli, main
 
 
-class TestMain:
-    def test_main_exists(self):
+class TestMain(unittest.TestCase):
+    @patch('main.cli.cli')
+    def test_main_calls_cli(self, mock_cli):
         main()
-
-    @patch.object(Cli, "start")
-    def test_main_makes_cli(self, mock):
-        main()
-        assert mock.called
+        mock_cli.assert_called_once()
 
 
-class TestCli:
-    def test_init_default(self):
-        cli = Cli()
-        assert cli != None
+class TestCLI(unittest.TestCase):
+    def setUp(self):
+        self.runner = CliRunner()
 
-    def test_init_default_has_cli_args(self):
-        cli = Cli()
-        assert cli.cli_args != None
-        assert type(cli.cli_args) == CliArgs
+    def test_default_command(self):
+        result = self.runner.invoke(cli)
+        self.assertEqual(result.exit_code, 0)
+        self.assertIn("cli init", result.output)
 
-    def test_init_default_has_configs(self):
-        cli = Cli()
-        assert cli.configs != None
-        assert type(cli.configs) == ConfigList
-
-    def test_init_with_config(self):
-        expected_description = "An alias description"
-        expected_alias = "alias cdc = cd ~/c"
-
-        cli = Cli([
-            AliasConfig(
-                description=expected_description, alias=expected_alias)
-        ])
-        assert cli.configs[0].type == ConfigType.ALIAS
-
-    def test_init_with_many_configs(self):
-        configs = ConfigList()
-        for i in range(10):
-            configs.append(VarConfig(f"desc {i}", f"line {i}"))
-
-        cli = Cli(configs)
-        for i in range(len(configs)):
-            assert cli.configs[i].description == f"desc {i}"
-            assert cli.configs[i].line == f"line {i}"
+    def test_verbose_flag(self):
+        result = self.runner.invoke(cli, ['--verbose'])
+        self.assertEqual(result.exit_code, 0)
+        self.assertIn("cli init", result.output)
+        # Add more assertions if verbose output is expected
