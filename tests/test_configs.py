@@ -1,5 +1,7 @@
 import pytest
-from main.config import *
+from main.config import (
+    Config, ConfigType, AliasConfig, FunctionConfig, VarConfig, ConfigList
+)
 
 expected_description = "a description"
 expected_line = "a line"
@@ -12,7 +14,8 @@ class TestConfig:
             def __init__(self, desc=''):
                 super().__init__(desc, ConfigType.ALIAS)
 
-            # we trick the interpreter into thinking we implemented config methods
+            # we trick the interpreter into thinking we implemented
+            #  config methods
             def __str__(self):
                 super().__str__()
 
@@ -26,7 +29,7 @@ class TestAliasConfig:
     config = AliasConfig(expected_description, expected_line)
 
     def test_init_default_not_none(self):
-        assert self.default_config != None
+        assert self.default_config is not None
 
     def test_init_default_has_type(self):
         assert self.default_config.type == ConfigType.ALIAS
@@ -57,7 +60,7 @@ class TestFunctionConfig:
     config = FunctionConfig(expected_description, expected_lines)
 
     def test_init_default_not_none(self):
-        assert self.default_config != None
+        assert self.default_config is not None
 
     def test_init_default_has_type(self):
         assert self.default_config.type == ConfigType.FUNCTION
@@ -90,7 +93,7 @@ class TestVarConfig:
     config = VarConfig(expected_description, expected_line)
 
     def test_init_default_not_none(self):
-        assert self.default_config != None
+        assert self.default_config is not None
 
     def test_init_default_has_type(self):
         assert self.default_config.type == ConfigType.ENV_VAR
@@ -127,7 +130,7 @@ class TestConfigList:
     config_list = ConfigList(configs)
 
     def test_init_default(self):
-        assert self.default_config_list != None
+        assert self.default_config_list is not None
 
     def test_init_default_with_configs(self):
         assert self.config_list == self.configs
@@ -198,7 +201,10 @@ class TestConfigList:
 
         some_configs.extend(configs_to_extend)
         assert (len_old_configs + len_extended) == len(
-            some_configs), f"len of extended config should be {len_old_configs} + {len_extended} = {len(some_configs)}"
+                some_configs), (
+                f"len of extended config should be {len_old_configs} + "
+                f"{len_extended} = {len(some_configs)}"
+            )
 
     def test_extend_different_iterable(self):
         some_configs = ConfigList([
@@ -215,4 +221,7 @@ class TestConfigList:
 
         some_configs.extend(configs_to_extend)
         assert (len_old_configs + len_extended) == len(
-            some_configs), f"len of extended config should be {len_old_configs} + {len_extended} = {len(some_configs)}"
+                some_configs), (
+                f"len of extended config should be {len_old_configs} + "
+                f"{len_extended} = {len(some_configs)}"
+            )

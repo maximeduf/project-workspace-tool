@@ -15,3 +15,6 @@ python -m main
 ```
 pytest --cov-config .coveragerc  --cov-report term-missing --cov=main tests/
 ```
+
+## Docs
+for documentation see [mrw documentation](mrw-doc.md)

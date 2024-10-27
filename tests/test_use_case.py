@@ -1,13 +1,13 @@
-
 from main.use_case import UseCase
-from unittest.mock import patch
 import pytest
+
 
 class TestUseCase:
     def test_config_raises_when_child_class_doesnt_implement(self):
         class MyUseCase(UseCase[int, str]):
             def __init__(self, params: int):
                 super().__init__(params)
+
             def __call__(self) -> str:
                 super().__call__()
 
@@ -26,6 +26,7 @@ class TestUseCase:
         class NoneParamsUseCase(UseCase[None, str]):
             def __init__(self):
                 super().__init__(None)
+
             def __call__(self) -> str:
                 return "supsup"
         none_param_use_case = NoneParamsUseCase()
