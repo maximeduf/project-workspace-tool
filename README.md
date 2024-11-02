@@ -4,7 +4,7 @@ An alternative to monorepos for managing projects composed of multiple git repos
 This also aims to provide a way to automatically configure a development environment for the project.
 
 ## Prerequisites
-for python prerequisites see [setup-python-venv.md](https://github.com/maximeduf/project-workspace-tool/blob/master/docs/setup-python-venv.md)
+for python prerequisites see [setup-python-venv.md](https://github.com/maximeduf/multi-repo-workspace/blob/master/docs/setup-python-venv.md)
 
 ## Install and Run for development
 in venv activated
@@ -27,4 +27,4 @@ or
 ```
 
 ## Docs
-for documentation see [mrw documentation](https://github.com/maximeduf/project-workspace-tool/blob/master/docs/mrw-doc.md)
+for documentation see [mrw documentation](https://github.com/maximeduf/multi-repo-workspace/blob/master/docs/mrw-doc.md)

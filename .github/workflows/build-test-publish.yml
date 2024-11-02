@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/multi-repo-workspace # Replace <package-name> with your PyPI project name
+      url: https://pypi.org/p/multi-repo-workspace
     permissions:
       id-token: write # IMPORTANT: mandatory for trusted publishing
 
@@ -135,5 +135,5 @@ jobs:
       - name: Publish distribution 📦 to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
+          verbose: true
           repository-url: https://test.pypi.org/legacy/
-          skip-existing: true

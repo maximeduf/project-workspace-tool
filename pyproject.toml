@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "multi-repo-workspace"
-version = "0.0.1"
+version = "0.0.2"
 authors = [{ name = "Maxime Dufresne", email = "maxm.dufresne@gmail.com" }]
 description = "Command Line Interface for managing projects in a multi-repository context by configuration."
 readme = "README.md"
@@ -39,5 +39,5 @@ test = [
 mrw = "multi_repo_workspace.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/maximeduf/project-workspace-tool"
-Issues = "https://github.com/maximeduf/project-workspace-tool/issues"
+Homepage = "https://github.com/maximeduf/multi-repo-workspace"
+Issues = "https://github.com/maximeduf/multi-repo-workspace/issues"
