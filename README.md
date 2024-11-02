@@ -1,4 +1,4 @@
-# Multi-repo Workspace (mrw)
+# multi-repo-workspace (mrw)
 An alternative to monorepos for managing projects composed of multiple git repositories without using git submodules.
 
 This also aims to provide a way to automatically configure a development environment for the project.

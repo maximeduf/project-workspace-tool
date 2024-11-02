@@ -1,4 +1,4 @@
-# Multi-repo Workspace (mrw)
+# multi-repo-workspace (mrw)
 An alternative to monorepos for managing projects composed of multiple git repositories without using git submodules.
 This also aims to provide a way to automatically configure a development environment for the project.
 For more info, see the Vision section below.
@@ -24,7 +24,17 @@ or
 ```
 
 ## What is done
+### Github actions
+Jobs
+- build (with linting, testing, building and artifact-upload)
+- publish-to-pypi (on tag v* when build completes)
+- github-release (when publish-to-pypi completes)
+- publish-to-testpypi (when build completes)
 
+**improvements to-do**
+- be able to push new version on testpypi, either by version bump or auto-delete existing version
+- Have a way to use new testpypi package to execute further functional testing in one or more environements
+- have new versions pushed to pypi in a more reliable way than tag v*, that depends on functional testing of the testpypi package.
 ### commands
 - default -> prints `cli init`
 ### Configs
