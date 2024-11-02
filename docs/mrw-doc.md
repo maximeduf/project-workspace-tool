@@ -24,8 +24,7 @@ or
 ```
 
 ## What is done
-### publishing info
-to be published on pypi. Name: `multi-repo-workspace`. command: `mrw`
+
 ### commands
 - default -> prints `cli init`
 ### Configs
