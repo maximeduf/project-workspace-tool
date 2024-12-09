@@ -27,12 +27,13 @@ class MrwCreate(UseCase[ProgramArguments, None]):
     directory, the user will be prompted to confirm that they want to
     use that directory.
     """
-    def __init__(self):
-        super().__init__(self)
+    def __init__(self, params: ProgramArguments):
+        super().__init__()
+        self.params = params
 
-    def __call__(self, ProgramArguments):
-        workspace_name_arg: str = ProgramArguments.workspace_name
-        workspace_path_arg: Path = ProgramArguments.workspace_path
+    def __call__(self):
+        workspace_name_arg: str = self.params.workspace_name
+        workspace_path_arg: Path = self.params.workspace_path
 
         click.echo("Hello! inside the create use case")
         click.echo(f"workspace_name: {workspace_name_arg}")

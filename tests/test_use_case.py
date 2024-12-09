@@ -6,7 +6,8 @@ class TestUseCase:
     def test_config_raises_when_child_class_doesnt_implement(self):
         class MyUseCase(UseCase[int, str]):
             def __init__(self, params: int):
-                super().__init__(params)
+                super().__init__()
+                self.params = params
 
             def __call__(self) -> str:
                 super().__call__()
@@ -17,6 +18,10 @@ class TestUseCase:
 
     def test_specific_use_case_generics(self):
         class AnotherUseCase(UseCase[int, str]):
+            def __init__(self, params: int):
+                super().__init__()
+                self.params = params
+
             def __call__(self) -> str:
                 return "sup"
         a_use_case = AnotherUseCase(3)
@@ -25,7 +30,7 @@ class TestUseCase:
     def test_specific_use_case_none_params(self):
         class NoneParamsUseCase(UseCase[None, str]):
             def __init__(self):
-                super().__init__(None)
+                super().__init__()
 
             def __call__(self) -> str:
                 return "supsup"

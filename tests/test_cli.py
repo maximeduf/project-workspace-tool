@@ -18,10 +18,9 @@ class TestCLI(unittest.TestCase):
     def test_default_command(self):
         result = self.runner.invoke(cli)
         self.assertEqual(result.exit_code, 0)
-        self.assertIn("cli init", result.output)
+        self.assertIn("Welcome to Multi-Repo Workspace (MRW)!", result.output)
 
-    def test_verbose_flag(self):
-        result = self.runner.invoke(cli, ['--verbose'])
-        self.assertEqual(result.exit_code, 0)
-        self.assertIn("cli init", result.output)
-        # Add more assertions if verbose output is expected
+    def test_create_command(self):
+        result = self.runner.invoke(
+            cli, ['create', 'name-workspace', '-d', 'path/to/workspace'])
+        self.assertIn("Hello! inside the create use case", result.output)

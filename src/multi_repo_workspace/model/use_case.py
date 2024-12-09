@@ -9,9 +9,6 @@ Returns = TypeVar('Returns')
 
 class UseCase(ABC, Generic[Params, Returns]):
 
-    def __init__(self, params: Params):
-        self.params = params
-
     @classmethod
     @abstractmethod
     def __call__(self) -> Returns:

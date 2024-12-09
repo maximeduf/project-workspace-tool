@@ -44,6 +44,6 @@ def create(ctx, workspace_name, directory):
     """
     ctx.ensure_object(dict)
     arguments = ProgramArguments(workspace_name, directory)
-    MrwCreate()(arguments)
+    MrwCreate(arguments)()
 
 # endregion
