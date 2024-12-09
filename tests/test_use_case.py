@@ -1,4 +1,4 @@
-from multi_repo_workspace.use_case import UseCase
+from multi_repo_workspace.model.use_case import UseCase
 import pytest
 
 

@@ -1,5 +1,5 @@
 import pytest
-from multi_repo_workspace.config import (
+from multi_repo_workspace.model.config import (
     Config, ConfigType, AliasConfig, FunctionConfig, VarConfig, ConfigList
 )
 
