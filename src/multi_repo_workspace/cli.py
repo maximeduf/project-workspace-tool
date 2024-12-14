@@ -1,12 +1,13 @@
+import pathlib
 import click
-from multi_repo_workspace.commands.mrw_create import (
-    MrwCreate,
-    ProgramArguments
-)
+from multi_repo_workspace.commands.mrw_create import (MrwCreate,
+                                                      ProgramArgument,
+                                                      ProgramArguments)
 
 
 def main():
     cli()
+
 
 # region main command: > mrw
 
@@ -17,8 +18,8 @@ def main():
 def cli(ctx, verbose):
     """Default command invoked as a command."""
     ctx.ensure_object(dict)
-    output_text = click.style(
-        "Welcome to Multi-Repo Workspace (MRW)!", fg='green')
+    output_text = click.style("Welcome to Multi-Repo Workspace (MRW)!",
+                              fg='green')
     click.echo(f"{output_text}\n")
 
     if ctx.invoked_subcommand is None:
@@ -26,24 +27,23 @@ def cli(ctx, verbose):
     else:
         click.echo("I am about to invoke %s" % ctx.invoked_subcommand)
 
+
 # endregion
 
 # region subcommand: > mrw create
 
 
 @cli.command()
-@click.pass_context
-@click.argument("workspace_name", type=str, required=False)
-@click.option(
-    "-d", "--directory",
-    required=False,
-    help="Where to create workspace folder.")
-def create(ctx, workspace_name, directory):
+@click.argument("name", type=str, required=False)
+@click.option("-d",
+              "--directory",
+              required=False,
+              help="Where to create workspace folder.",
+              type=click.Path(exists=True, file_okay=False, dir_okay=True, path_type=pathlib.Path))
+def create(name: str, directory: click.Path):
     """
     Create a new workspace.
     """
-    ctx.ensure_object(dict)
-    arguments = ProgramArguments(workspace_name, directory)
-    MrwCreate(arguments)()
+    MrwCreate()({"workspace_name": name, "workspace_directory": directory})
 
-# endregion
+    # endregion
