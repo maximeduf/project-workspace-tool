@@ -11,7 +11,7 @@ from typing import TypeVar
 T = TypeVar('T')
 
 
-class ProgramArgument:
+class LineArgument:
     """
     Represents a single program argument. (--path)
     @param name: The name of the argument.  (path)
@@ -45,12 +45,12 @@ class ProgramArgument:
         return repr
 
 
-class ProgramArguments:
+class MrwArguments:
     """
-    ProgramArguments will have arguments passed from command line as a dictionary.
+    MrwArguments will have arguments passed from command line as a dictionary.
     """
 
-    def __init__(self, *args: ProgramArgument):
+    def __init__(self, *args: LineArgument):
         self.args = {arg.name: arg for arg in args}
 
     def __getitem__(self, name: str):
@@ -69,14 +69,14 @@ class ProgramArguments:
         return all(arg.is_confirmed for arg in self.args.values())
 
     def __repr__(self):
-        repr = "ProgramArguments(\n"
+        repr = "MrwArguments(\n"
         for arg in self.args.values():
             repr += f"    {arg.__repr__()}\n"
         repr += ")"
         return repr
 
 
-class MrwCreate(UseCase[ProgramArguments, None]):
+class MrwCreate(UseCase[MrwArguments, None]):
 
     @staticmethod
     def prompt_name(_: Any = None) -> str:
@@ -134,10 +134,10 @@ class MrwCreate(UseCase[ProgramArguments, None]):
     def __call__(self, args: dict):
         self.echo_welcome()
 
-        mrw_params = ProgramArguments(
-            ProgramArgument("workspace_name", args["workspace_name"],
+        mrw_params = MrwArguments(
+            LineArgument("workspace_name", args["workspace_name"],
                             MrwCreate.prompt_name, MrwCreate.confirm_name),
-            ProgramArgument("workspace_directory", args["workspace_directory"],
+            LineArgument("workspace_directory", args["workspace_directory"],
                             MrwCreate.prompt_path, MrwCreate.confirm_path))
 
         click.echo(mrw_params)

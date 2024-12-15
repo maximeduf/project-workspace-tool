@@ -1,8 +1,8 @@
 import pathlib
 import click
 from multi_repo_workspace.commands.mrw_create import (MrwCreate,
-                                                      ProgramArgument,
-                                                      ProgramArguments)
+                                                      LineArgument,
+                                                      MrwArguments)
 
 
 def main():
