@@ -9,8 +9,8 @@ class Workspace:
         self.path = path
         self.repos = repos
 
-    def initialize(self):
-        pass
+    def get_file_path(self, file_name: str) -> Path:
+        return self.path.joinpath(file_name)
 
     def __str__(self):
         return f"name: {self.name} ({self.path.absolute()})\n{self.repos}"

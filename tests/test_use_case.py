@@ -1,10 +1,10 @@
-from multi_repo_workspace.model.use_case import UseCase
+from multi_repo_workspace.model.cli_command import Command
 import pytest
 
 
 class TestUseCase:
     def test_config_raises_when_child_class_doesnt_implement(self):
-        class MyUseCase(UseCase[int, str]):
+        class MyUseCase(Command[int, str]):
             def __init__(self, params: int):
                 super().__init__()
                 self.params = params
@@ -17,7 +17,7 @@ class TestUseCase:
             usecase()
 
     def test_specific_use_case_generics(self):
-        class AnotherUseCase(UseCase[int, str]):
+        class AnotherUseCase(Command[int, str]):
             def __init__(self, params: int):
                 super().__init__()
                 self.params = params
@@ -28,7 +28,7 @@ class TestUseCase:
         assert a_use_case() == "sup"
 
     def test_specific_use_case_none_params(self):
-        class NoneParamsUseCase(UseCase[None, str]):
+        class NoneParamsUseCase(Command[None, str]):
             def __init__(self):
                 super().__init__()
 

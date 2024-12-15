@@ -2,8 +2,8 @@ import unittest
 from unittest.mock import patch
 from click.testing import CliRunner
 from multi_repo_workspace.commands.mrw_create import (
-    MrwCreate,
-    MrwArguments
+    CreateWorkspace,
+    CommandArgs
 )
 from pathlib import Path
 
@@ -18,8 +18,8 @@ class TestMrwCreate(unittest.TestCase):
         mock_prompt.side_effect = ['test_workspace']
         mock_confirm.side_effect = [True]
 
-        params = MrwArguments(workspace_name='', workspace_path=Path(''))
-        use_case = MrwCreate(params)
+        params = CommandArgs(workspace_name='', workspace_path=Path(''))
+        use_case = CreateWorkspace(params)
 
         result = self.runner.invoke(use_case)
 

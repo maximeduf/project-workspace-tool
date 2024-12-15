@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from click.testing import CliRunner
-from multi_repo_workspace.cli import cli, main
+from multi_repo_workspace.main import cli, main
 
 
 class TestMain(unittest.TestCase):
