@@ -1,18 +1,18 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
 
-# represent parameters needed for a use case
+import click
+
+# represent parameters needed for a command
 Params = TypeVar('Params')
-# represent return type of a use case
+# represent return type of a command
 Returns = TypeVar('Returns')
 
 
-class UseCase(ABC, Generic[Params, Returns]):
-
-    def __init__(self, params: Params):
-        self.params = params
+class Command(ABC, Generic[Params, Returns]):
 
     @classmethod
     @abstractmethod
     def __call__(self) -> Returns:
+        click.echo("This command has not been implemented yet.")
         raise NotImplementedError

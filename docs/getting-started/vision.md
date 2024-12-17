@@ -1,48 +1,3 @@
-# multi-repo-workspace (mrw)
-An alternative to monorepos for managing projects composed of multiple git repositories without using git submodules.
-This also aims to provide a way to automatically configure a development environment for the project.
-For more info, see the Vision section below.
-
-## Prerequisites
-for python prerequisites see [setup-python-venv.md](setup-python-venv.md)
-## Install and Run for development
-in venv activated
-```
-python -m pip install -e ."[test]"
-```
-### CLI
-```
-mrw
-```
-### Tests
-```
-PYTHONPATH=src pytest --cov-config .coveragerc --cov-report term-missing --cov=multi_repo_workspace tests
-```
-or
-```
-./run_tests.sh
-```
-
-## What is done
-### Github actions
-Jobs
-- build (with linting, testing, building and artifact-upload)
-- publish-to-pypi (on tag v* when build completes)
-- github-release (when publish-to-pypi completes)
-- publish-to-testpypi (when build completes)
-
-**improvements to-do**
-- be able to push new version on testpypi, either by version bump or auto-delete existing version
-- Have a way to use new testpypi package to execute further functional testing in one or more environements
-- have new versions pushed to pypi in a more reliable way than tag v*, that depends on functional testing of the testpypi package.
-### commands
-- default -> prints `cli init`
-### Configs
-Config objects modeled:
-- AliasConfig
-- FunctionConfig
-- VarConfig
-
 ## Vision
 A workspace is effectively a github repository that is the starting point to get up and running on a project.
 The main definition is in a yaml file that at least has a list of repositories.
@@ -53,6 +8,11 @@ Different ways to handle this is
 - either way, use a non-interactive (with commmand arguments) or interactive approach (prompts to get the information)
 ### Priority
 Priority is on **yaml first** and **interactive** approach to create a workspace that can **clone all repositories in one go**, with **only git repository configurations**. Some other configurations are already modeled, but they are not critical for this project to be useful.
+### Usage
+**create a workspace**
+```
+mrw create workspace_path/
+```
 ### Ultimate goal
 The ultimate goal is to be able to have :
 - other configurations, like aliases, functions or environment variables, available system wide.
@@ -71,23 +31,23 @@ mrw
  - create new workspace [x]
  - list workspaces
 ```
-### create workspace use case
+### create workspace command
 ```
 mrw workspace create
 ```
 Questions for new workspace
 - enter a workspace name (ie: mrw. will create workspace folder "mrw-workspace" at path location)
 - enter path location for new workspace (default: here)
-- add configuration? (Y|n) (repeat until no) (**use case**)
+- add configuration? (Y|n) (repeat until no) (**command**)
 print summary
 - all good? (Y|n)
 ... creating workspace 
 ... initialising git repository
 ... creating name-workspace.yml
 ... done
-- apply configurations? (**use case**)
+- apply configurations? (**command**)
 
-### add workspace configuration use case (incomplete)
+### add workspace configuration command (incomplete)
 ```
 mrw config add
 - from path
