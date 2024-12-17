@@ -3,9 +3,9 @@ from typing import TypeVar, Generic
 
 import click
 
-# represent parameters needed for a use case
+# represent parameters needed for a command
 Params = TypeVar('Params')
-# represent return type of a use case
+# represent return type of a command
 Returns = TypeVar('Returns')
 
 

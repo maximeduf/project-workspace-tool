@@ -23,4 +23,4 @@ class TestCLI(unittest.TestCase):
     def test_create_command(self):
         result = self.runner.invoke(
             cli, ['create', 'name-workspace', '-d', 'path/to/workspace'])
-        self.assertIn("Hello! inside the create use case", result.output)
+        self.assertIn("Hello! inside the create command", result.output)

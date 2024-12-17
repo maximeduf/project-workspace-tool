@@ -19,11 +19,11 @@ class TestMrwCreate(unittest.TestCase):
         mock_confirm.side_effect = [True]
 
         params = CommandArgs(workspace_name='', workspace_path=Path(''))
-        use_case = CreateWorkspace(params)
+        command = CreateWorkspace(params)
 
-        result = self.runner.invoke(use_case)
+        result = self.runner.invoke(command)
 
-        self.assertIn("Hello! inside the create use case", result.output)
+        self.assertIn("Hello! inside the create command", result.output)
         self.assertIn("name confirmed!", result.output)
         mock_prompt.assert_called_once_with("Enter workspace name", type=str)
         mock_confirm.assert_called_once_with(

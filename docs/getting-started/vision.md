@@ -31,23 +31,23 @@ mrw
  - create new workspace [x]
  - list workspaces
 ```
-### create workspace use case
+### create workspace command
 ```
 mrw workspace create
 ```
 Questions for new workspace
 - enter a workspace name (ie: mrw. will create workspace folder "mrw-workspace" at path location)
 - enter path location for new workspace (default: here)
-- add configuration? (Y|n) (repeat until no) (**use case**)
+- add configuration? (Y|n) (repeat until no) (**command**)
 print summary
 - all good? (Y|n)
 ... creating workspace 
 ... initialising git repository
 ... creating name-workspace.yml
 ... done
-- apply configurations? (**use case**)
+- apply configurations? (**command**)
 
-### add workspace configuration use case (incomplete)
+### add workspace configuration command (incomplete)
 ```
 mrw config add
 - from path
