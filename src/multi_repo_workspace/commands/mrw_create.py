@@ -1,14 +1,13 @@
 import pathlib
 import click
+from multi_repo_workspace.core.logging import get_logger
 from multi_repo_workspace.model.cli_args import CommandArgs, LineArgument
-from multi_repo_workspace.model.cli_command import Command
+from multi_repo_workspace.core.cli_command import Command
 import os
 
 from multi_repo_workspace.model.cli_operation import CreateFile, CreateOrUseDirectory, Operation, WriteToFile
 from multi_repo_workspace.model.workspace import Workspace
-from pathlib import Path
-from typing import Any, Callable, List
-from typing import TypeVar
+from typing import List
 
 
 class CreateWorkspace(Command[CommandArgs, None]):
@@ -31,9 +30,6 @@ class CreateWorkspace(Command[CommandArgs, None]):
                          self.prompt_name, self.confirm_name),
             LineArgument("workspace_directory", args["workspace_directory"],
                          self.prompt_path, self.confirm_path))
-
-    def echo_welcome(self):
-        return click.echo("Hello! inside the create use case\n")
 
     def prompt_name(self) -> str:
         return click.prompt("Enter workspace name", type=str)
@@ -71,38 +67,54 @@ class CreateWorkspace(Command[CommandArgs, None]):
         )
         if confirmation:
             self.ops.append(CreateOrUseDirectory(work_dir))
-            self.ops.append(CreateFile(work_dir.joinpath(f"{name}.yml")))
         else:
             self.args["workspace_name"].is_confirmed = False
         return confirmation
 
     def __call__(self):
-        self.echo_welcome()
-
-        click.echo(self.args)
+        log = get_logger()
+        log.info("Starting CreateWorkspace command")
 
         # confirm arguments
+        log.debug(f"Confirming {self.args}")
         while not self.args.is_confirmed():
+
+            log.debug("Prompting user for arguments")
             argsToConfirm = [
                 arg for arg in self.args.arg_values() if not arg.is_confirmed
             ]
             for arg in argsToConfirm:
-                # confirm param
+                # if value is not set, prompt user
                 if not arg.value:
+                    log.debug(f"Prompting user for {arg}")
                     arg.value = arg.prompt()
+                # if value is set, confirm it
                 if not arg.is_confirmed:
+                    log.debug(f"Confirming {arg.name}")
                     arg.is_confirmed = arg.confirm(arg.value)
-                arg.value = None if not arg.is_confirmed else arg.value
+                # if value was not confirmed, set value to None
                 if not arg.is_confirmed:
-                    break
+                    log.debug(f"{arg} was not confirmed")
+                    arg.value = None
+                    break  # break out of for loop
+                else:
+                    log.debug(f"{arg.name} is {arg.is_confirmed_str()}")
 
-        workspace = Workspace(self.args["workspace_name"].value,
-                              self.args["workspace_directory"].value, None)
-        file = workspace.get_file_path(f"{workspace.name}.yml")
+        # create workspace
+        log.debug("Creating workspace object")
+        workspace = Workspace(
+            self.args["workspace_name"].value,
+            self.args["workspace_directory"].value.absolute(), None)
+        log.debug(f"Workspace object created: {workspace}")
+        file = workspace.get_file_path(f"{workspace.name}.yml").absolute()
+        log.warning(f"File path: {file}")
         self.ops.append(CreateFile(file))
         self.ops.append(WriteToFile(file, str(workspace)))
+        log.debug(f"Operations queued : {self.ops}")
+
         # execute operations
         for op in self.ops:
+            log.debug(f"Executing operation: {op.name}")
             op()
 
         if all(op.has_succeeded for op in self.ops):
